@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DemoqaTest {
 
@@ -28,15 +29,15 @@ public class DemoqaTest {
 
     @Test
     public void sendForm() throws InterruptedException {
-        WebDriverManager.chromedriver().setup();
+        //WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
 
 
         driver.get("https://demoqa.com/automation-practice-form");
 
-        WebElement selectState = driver.findElement(By.xpath("//*[@id=\"state\"]/div/div[1]/div[1]").);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",selectState);
+        WebElement selectState = driver.findElement(By.xpath("//*[@id=\"state\"]/div/div[1]/div[1]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", selectState);
         selectState.click();
         selectState.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
         driver.findElement(By.id("firstName")).sendKeys("Olga");
@@ -66,8 +67,6 @@ public class DemoqaTest {
         driver.findElement(By.cssSelector("[class='subjects-auto-complete__value-container subjects-auto-complete__value-container--is-multi css-1hwfws3']")).sendKeys("Chemistry");
         driver.findElement(By.className("ui-menu-item")).click();
         Thread.sleep(2000);
-
-
 
 
         driver.quit();
