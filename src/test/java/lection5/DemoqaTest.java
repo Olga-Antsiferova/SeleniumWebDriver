@@ -1,36 +1,37 @@
 package lection5;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DemoqaTest {
 
-    // @BeforeEach
-    //  public void setup() {
-    //      WebDriver driver = null;
-    //      String browser = System.getProperty("browser");
+    @BeforeEach
+    public void setUp() {
+        WebDriver driver = null;
+        String browser = System.getProperty("browser");
 
-    //     if (browser.equals("chrome")) {
-    //         WebDriverManager.chromedriver().setup();
-    //         driver = new ChromeDriver();
-    //     } else if (browser.equals("firefox")) {
-    //          WebDriverManager.firefoxdriver().setup();
-    //         driver = new FirefoxDriver();
-    //     } else if (browser.equals("edge")) {
-    //        WebDriverManager.edgedriver().setup();
-    //     driver = new EdgeDriver();
-    // }
-    //  driver.get("https://demoqa.com/automation-practice-form");
-    //  driver.manage().window().maximize();
-    //  }
+        if (browser.equals("chrome")) {
+            driver = new ChromeDriver();
+        } else if (browser.equals("firefox")) {
+            driver = new FirefoxDriver();
+        } else if (browser.equals("edge")) {
+            driver = new EdgeDriver();
+        }
+        driver.get("https://demoqa.com/automation-practice-form");
+        driver.manage().window().maximize();
+    }
 
     @Test
     public void sendForm() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://demoqa.com/automation-practice-form");
+        //WebDriver driver = new ChromeDriver();
+        //driver.manage().window().maximize();
+        // driver.get("https://demoqa.com/automation-practice-form");
 
         driver.findElement(By.id("firstName")).sendKeys("Olga");
         Thread.sleep(2000);
@@ -63,7 +64,6 @@ public class DemoqaTest {
         driver.findElement(By.cssSelector("#currentAddress")).sendKeys("Novosibirsk");
         Thread.sleep(2000);
         WebElement selectState = driver.findElement(By.id("react-select-3-input"));
-        //((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", selectState);
         selectState.sendKeys("NCR");
         selectState.sendKeys(Keys.ENTER);
         Thread.sleep(2000);
@@ -104,11 +104,11 @@ public class DemoqaTest {
         WebElement studentStateCity = driver.findElement(By.cssSelector("body > div.fade.modal.show > div > div > div.modal-body > div > table > tbody > tr:nth-child(10) > td:nth-child(2)"));
         String stateCity = studentStateCity.getText();
         Assertions.assertEquals("NCR Noida", stateCity);
-        driver.quit();
+        //driver.quit();
     }
-
-    //  @AfterEach
-    //  public void tearDown() {
-    //   driver.quit();
-    //}
+    @AfterEach
+    public void tearDown() {
+     driver.quit();
+     }
 }
+
